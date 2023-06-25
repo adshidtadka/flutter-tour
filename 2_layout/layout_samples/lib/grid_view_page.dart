@@ -83,14 +83,34 @@ class _GridViewPageState extends State<GridViewPage> {
             crossAxisCount: _columnsCount,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10),
-        itemBuilder: (context, index) => Container(
-            color: Color((math.Random(index).)),
-            child: Center(
-              child: Text(
-                index.toString(),
-                style: const TextStyle(fontSize: 42, color: Colors.white),
-              ),
-            )),
+        itemBuilder: (context, index) {
+          final gridItemColor =
+              Color((math.Random(index).nextDouble() * 0xFFFFFF).toInt())
+                  .withOpacity(1.0);
+          return Stack(
+            children: [
+              Container(
+                  color: gridItemColor,
+                  child: Center(
+                    child: Text(
+                      index.toString(),
+                      style: const TextStyle(fontSize: 42, color: Colors.white),
+                    ),
+                  )),
+              Positioned(
+                  right: 10,
+                  bottom: 10,
+                  child: Text(
+                    gridItemColor
+                        .toString()
+                        .toUpperCase()
+                        .substring(6, 16)
+                        .replaceAll('0X', '#'),
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  ))
+            ],
+          );
+        },
       ),
     );
   }
