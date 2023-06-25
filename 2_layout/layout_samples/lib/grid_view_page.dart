@@ -87,6 +87,9 @@ class _GridViewPageState extends State<GridViewPage> {
           final gridItemColor =
               Color((math.Random(index).nextDouble() * 0xFFFFFF).toInt())
                   .withOpacity(1.0);
+          final textColor = gridItemColor.computeLuminance() > 0.5
+              ? Colors.black
+              : Colors.white;
           return Stack(
             children: [
               Container(
@@ -94,7 +97,7 @@ class _GridViewPageState extends State<GridViewPage> {
                   child: Center(
                     child: Text(
                       index.toString(),
-                      style: const TextStyle(fontSize: 42, color: Colors.white),
+                      style: TextStyle(fontSize: 42, color: textColor),
                     ),
                   )),
               Positioned(
@@ -106,7 +109,7 @@ class _GridViewPageState extends State<GridViewPage> {
                         .toUpperCase()
                         .substring(6, 16)
                         .replaceAll('0X', '#'),
-                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: textColor),
                   ))
             ],
           );
