@@ -9,6 +9,67 @@ class ShrinkableFooterPage extends StatefulWidget {
 class _ShrinkableFooterPageState extends State<ShrinkableFooterPage> {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(left: 16, right: 50),
+            height: 200,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20)),
+              color: Color(0xFFFEEAE6),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(
+                  height: 70,
+                ),
+                Text(
+                  'スクロールに応じて\nButtonNavigationBarが\n縮みます。',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Color(0xFF442C2E),
+                      height: 1.2),
+                ),
+                const SizedBox(
+                  height: 20,
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Image.network(
+              'https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1369&q=80'),
+          const SizedBox(height: 20.0),
+          Image.network(
+              'https://images.unsplash.com/photo-1532236204992-f5e85c024202?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1372&q=80'),
+          const SizedBox(height: 20.0),
+          Image.network(
+              'https://images.unsplash.com/photo-1493479874819-4303c36fa0f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'),
+          const SizedBox(height: 20.0),
+          Image.network(
+              'https://images.unsplash.com/photo-1463319611694-4bf9eb5a6e72?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'),
+          const SizedBox(height: 20.0),
+          Image.network(
+              'https://images.unsplash.com/photo-1469998265221-245c7148df5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80'),
+          const SizedBox(height: 20.0),
+        ],
+      ),
+    );
+  }
+}
+
+class _BottomNavigationBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Container(
         height: 60,
