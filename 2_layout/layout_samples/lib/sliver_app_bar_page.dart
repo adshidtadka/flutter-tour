@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SliverAppBarPage extends StatefulWidget {
   @override
@@ -19,7 +20,10 @@ class _SliverAppBarPageState extends State<SliverAppBarPage> {
             expandedHeight: 180,
             toolbarHeight: 60,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text('記事カテゴリー'),
+              title: Text(
+                '記事カテゴリー',
+                style: GoogleFonts.kosugiMaru(),
+              ),
               background: SizedBox(
                 width: double.infinity,
                 child: Image.network(
@@ -43,8 +47,11 @@ class _SliverAppBarPageState extends State<SliverAppBarPage> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            const Expanded(
-                              child: Text('Sept. 29 2020'),
+                            Expanded(
+                              child: Text(
+                                'Sept. 29 2020',
+                                style: GoogleFonts.lato(),
+                              ),
                             ),
                             IconButton(
                                 onPressed: () {},
@@ -52,7 +59,16 @@ class _SliverAppBarPageState extends State<SliverAppBarPage> {
                                     color: Colors.blueAccent))
                           ],
                         ),
-                        const Text('記事タイトル記事タイトル記事タイトル記事タイトル記事タイトル記事タイトル'),
+                        Text(
+                          '記事タイトル記事タイトル記事タイトル記事タイトル記事タイトル記事タイトル',
+                          style: GoogleFonts.sawarabiGothic(
+                            textStyle: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
                         const Divider(
                           height: 30,
                           thickness: 1,
@@ -69,11 +85,22 @@ class _SliverAppBarPageState extends State<SliverAppBarPage> {
                               backgroundColor: Colors.grey[200],
                             ),
                             const SizedBox(width: 10),
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('山田太郎'),
-                                Text('ITジャーナリスト'),
+                                Text(
+                                  '山田太郎',
+                                  style: GoogleFonts.sawarabiGothic(
+                                    textStyle: const TextStyle(fontSize: 14),
+                                  ),
+                                ),
+                                Text(
+                                  'ITジャーナリスト',
+                                  style: GoogleFonts.sawarabiGothic(
+                                    textStyle: const TextStyle(
+                                        fontSize: 10, color: Colors.black54),
+                                  ),
+                                ),
                               ],
                             ),
                             const Expanded(child: SizedBox()),
