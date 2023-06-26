@@ -108,7 +108,7 @@ class _ShrinkableFooterPageState extends State<ShrinkableFooterPage> {
 }
 
 class _BottomNavigationBar extends StatelessWidget {
-  _BottomNavigationBar({required this.isHiding});
+  const _BottomNavigationBar({required this.isHiding});
 
   final bool isHiding;
   @override
@@ -176,7 +176,7 @@ class _IconTextItem extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Icon(
               icon,
-              color: Color(0xFF442C2E),
+              color: const Color(0xFF442C2E),
               size: 24,
             ),
           ),
@@ -184,13 +184,13 @@ class _IconTextItem extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: AnimatedOpacity(
               opacity: isHiding ? 0 : 1,
-              duration: Duration(milliseconds: 120),
+              duration: const Duration(milliseconds: 120),
               curve: Curves.easeInQuart,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),
