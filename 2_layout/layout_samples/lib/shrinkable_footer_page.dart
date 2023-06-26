@@ -9,12 +9,12 @@ class ShrinkableFooterPage extends StatefulWidget {
 
 class _ShrinkableFooterPageState extends State<ShrinkableFooterPage> {
   final _scrollController = ScrollController();
-  bool isHiding = true;
+  bool isHiding = false;
 
   void _listenScroll() {
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.forward) {
+          ScrollDirection.reverse) {
         isHiding = true;
       } else {
         isHiding = false;
@@ -125,21 +125,25 @@ class _BottomNavigationBar extends StatelessWidget {
               children: [
                 _IconTextItem(
                   deviceWidth: width,
+                  isHiding: isHiding,
                   icon: Icons.home,
                   title: "Home",
                 ),
                 _IconTextItem(
                   deviceWidth: width,
+                  isHiding: isHiding,
                   icon: Icons.star,
                   title: "Favorite",
                 ),
                 _IconTextItem(
                   deviceWidth: width,
+                  isHiding: isHiding,
                   icon: Icons.favorite,
                   title: "Like",
                 ),
                 _IconTextItem(
                   deviceWidth: width,
+                  isHiding: isHiding,
                   icon: Icons.settings,
                   title: "Menu",
                 ),
@@ -152,11 +156,13 @@ class _IconTextItem extends StatelessWidget {
   const _IconTextItem({
     Key? key,
     required this.deviceWidth,
+    required this.isHiding,
     required this.icon,
     required this.title,
   }) : super(key: key);
 
   final double deviceWidth;
+  final bool isHiding;
   final IconData icon;
   final String title;
 
@@ -176,9 +182,17 @@ class _IconTextItem extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Text(
-              title,
-              style: TextStyle(fontSize: 16),
+            child: AnimatedOpacity(
+              opacity: isHiding ? 0 : 1,
+              duration: Duration(milliseconds: 120),
+              curve: Curves.easeInQuart,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  title,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
             ),
           )
         ],
