@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'views/pages/pages.dart';
 
-final helloWorldProvider = Provider((_) => 'Hello world');
+final titleProvider = Provider((_) => 'TODOアプリ');
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -15,14 +15,14 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String value = ref.watch(helloWorldProvider);
+    final String title = ref.watch(titleProvider);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TodosListPage(title: value),
+      home: TodosListPage(title: title),
     );
   }
 }

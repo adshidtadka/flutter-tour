@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../models/models.dart';
 import '../views.dart';
 
-class TodosListPage extends StatefulWidget {
-  final String title;
-  const TodosListPage({Key? key, required String this.title}) : super(key: key);
+final todoProvider = StateProvider<List<Todo>>((ref) => []);
 
-  @override
-  _TodosListPageState createState() => _TodosListPageState(title: title);
-}
-
-class _TodosListPageState extends State<TodosListPage> {
+class TodosListPage extends HookConsumerWidget {
   final String title;
   final List<Todo> _todos = <Todo>[];
 
-  _TodosListPageState({required this.title});
+  TodosListPage({Key? key, required this.title}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -28,16 +23,12 @@ class _TodosListPageState extends State<TodosListPage> {
           final todo = _todos[index];
           return Dismissible(
             key: ObjectKey(todo),
-            onDismissed: (direction) {
-              setState(() => _todos.removeAt(index));
-            },
+            onDismissed: (direction) {},
             child: Card(
               color: todo.isCompleted ? Colors.greenAccent : null,
               child: ListTile(
                 title: Text(todo.name),
-                onTap: () {
-                  setState(() => _todos[index].toggle());
-                },
+                onTap: () {},
                 trailing: todo.isCompleted
                     ? const Icon(
                         Icons.done,
@@ -53,9 +44,9 @@ class _TodosListPageState extends State<TodosListPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showTodoAddDialog(
-              context: context,
-              onAdd: (name) =>
-                  setState(() => _todos.insert(0, Todo(name: name))));
+            context: context,
+            onAdd: (name) => {},
+          );
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
