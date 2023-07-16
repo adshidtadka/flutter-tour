@@ -8,27 +8,36 @@ final todoProvider = StateProvider<List<Todo>>((ref) => []);
 
 class TodosListPage extends HookConsumerWidget {
   final String title;
-  final List<Todo> _todos = <Todo>[];
 
-  TodosListPage({Key? key, required this.title}) : super(key: key);
+  const TodosListPage({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final todos = ref.watch(todoProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          final todo = _todos[index];
+          final todo = todos[index];
           return Dismissible(
             key: ObjectKey(todo),
-            onDismissed: (direction) {},
+            onDismissed: (direction) {
+              ref.read(todoProvider.notifier).state =
+                  todos.where((t) => t != todo).toList();
+            },
             child: Card(
               color: todo.isCompleted ? Colors.greenAccent : null,
               child: ListTile(
                 title: Text(todo.name),
-                onTap: () {},
+                onTap: () {
+                  ref.read(todoProvider.notifier).state = todos
+                      .asMap()
+                      .entries
+                      .map((e) => e.key == index ? e.value.toggle() : e.value)
+                      .toList();
+                },
                 trailing: todo.isCompleted
                     ? const Icon(
                         Icons.done,
@@ -39,13 +48,21 @@ class TodosListPage extends HookConsumerWidget {
             ),
           );
         },
-        itemCount: _todos.length,
+        itemCount: todos.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showTodoAddDialog(
             context: context,
-            onAdd: (name) => {},
+            onAdd: (name) => {
+              ref.read(todoProvider.notifier).state = [
+                ...todos,
+                Todo(
+                  name: name,
+                  isCompleted: false,
+                ),
+              ]
+            },
           );
         },
         tooltip: 'Increment',

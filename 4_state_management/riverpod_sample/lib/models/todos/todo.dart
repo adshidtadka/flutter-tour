@@ -4,7 +4,10 @@ class Todo {
   bool isCompleted;
   final String name;
 
-  toggle() => {
-        isCompleted = !isCompleted,
-      };
+  Todo toggle() => _copyWith(isCompleted: !isCompleted);
+
+  Todo _copyWith({bool? isCompleted, String? name}) => Todo(
+        name: name ?? this.name,
+        isCompleted: isCompleted ?? this.isCompleted,
+      );
 }
