@@ -4,20 +4,24 @@ import '../../models/models.dart';
 import '../views.dart';
 
 class TodosListPage extends StatefulWidget {
-  const TodosListPage({Key? key}) : super(key: key);
+  final String title;
+  const TodosListPage({Key? key, required String this.title}) : super(key: key);
 
   @override
-  _TodosListPageState createState() => _TodosListPageState();
+  _TodosListPageState createState() => _TodosListPageState(title: title);
 }
 
 class _TodosListPageState extends State<TodosListPage> {
+  final String title;
   final List<Todo> _todos = <Todo>[];
+
+  _TodosListPageState({required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TODOアプリ'),
+        title: Text(title),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
