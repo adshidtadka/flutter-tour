@@ -48,8 +48,12 @@ class HomeScreenModel extends ChangeNotifier {
   }
 
   void deleteTodo(int id) {
+    final todo = todoProvider.todoList.firstWhere((todo) => todo.id == id);
     todoProvider.deleteTodo(id);
     notifyListeners();
+
+    // 画像ファイルを削除
+    _deleteFile(File(todo.imagePath));
   }
 
   void editTodo(Todo editingTodo) {
