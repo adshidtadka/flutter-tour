@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -61,11 +63,21 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: SizedBox(
                           width: size.width * .8,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Base64Helper.imageFromBase64String(
-                              todo.imagePath,
-                            ),
+                          child: Image.file(
+                            File(todo.imagePath),
+                            frameBuilder: (
+                              BuildContext context,
+                              Widget child,
+                              int? frame,
+                              bool wasSynchronouslyLoaded,
+                            ) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: child,
+                              );
+                            },
                           ),
                         ),
                       )

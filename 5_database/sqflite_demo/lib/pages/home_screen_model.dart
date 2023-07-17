@@ -22,6 +22,7 @@ class HomeScreenModel extends ChangeNotifier {
 
   late String _taskName;
   late String _base64ImageString = '';
+  late String _imagePath = '';
 
   String get base64ImageString => _base64ImageString;
 
@@ -32,7 +33,7 @@ class HomeScreenModel extends ChangeNotifier {
       name: _taskName,
       // SQLiteではDatetime型は存在しないため、Iso8601String型として保存
       createdAt: DateTime.now().toIso8601String(),
-      imagePath: _base64ImageString,
+      imagePath: _imagePath,
     );
 
     // Todoを保持するProviderを更新
@@ -40,6 +41,7 @@ class HomeScreenModel extends ChangeNotifier {
 
     // 選択済み画像を未設定へ変更
     _base64ImageString = '';
+    _imagePath = '';
 
     // Viewを再描画
     notifyListeners();
@@ -63,7 +65,7 @@ class HomeScreenModel extends ChangeNotifier {
   Future selectImage() async {
     final time = DateTime.now().millisecondsSinceEpoch;
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
       maxHeight: 600,
       maxWidth: 800,
@@ -79,6 +81,7 @@ class HomeScreenModel extends ChangeNotifier {
     // DBへ保存する為、base64文字列へ変換
     _base64ImageString =
         Base64Helper.base64String(copiedImageFile.readAsBytesSync());
+    _imagePath = copiedImageFile.path;
 
     // 端末の一時ファイルを削除
     _deleteFile(imageFile);
